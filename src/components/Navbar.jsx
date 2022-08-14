@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { motion } from 'framer-motion'
 import { close, logo, menu } from '../assets'
 import { navLinks } from '../contants'
 // import react scroll
@@ -8,18 +9,26 @@ import { useEffect } from 'react'
 const Navbar = () => {
 
   const [activeLink, setActiveLink] = useState('')
+  const [activeScroll, setActiveScroll] = useState(false)
   const [toggle, setToggle] = useState(false)
 
   useEffect(() => {
-    console.log(activeLink)
-  }, [activeLink])
+    window.addEventListener("scroll", () => {
+      setActiveScroll(window.scrollY > 50)
+    })
+  }, [])
 
   return (
-    <nav className='w-full flex py-6 justify-between items-center navbar fixed top-0 right-0 px-10 z-10'>
+    <motion.nav 
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    transition={{ duration: 1 }}
+    className={`w-full flex justify-between items-center navbar fixed top-0 right-0 px-10 z-10 ${activeScroll ? 'bg-black-gradient transition-all py-4' : 'py-3 transition-all'}`}>
       <img src={logo} alt="hoobank" className='w-[124px] h-[32px]' />
       <ul className='list-none sm:flex hidden justify-end items-center'>
         {navLinks.map((nav, index) => (
           <LinkScroll 
+          key={nav.id}
           activeClass='active'
           to={nav.id}
           spy={true}
@@ -29,16 +38,14 @@ const Navbar = () => {
               setActiveLink(nav.id);
           }}
           >
-            <li key={nav.id} 
-            className={`${activeLink === nav.id ? `text-white relative before:absolute 
+            <li 
+            className={`${activeLink === nav.id ? `text-white relative before:absolute
             font-poppins font-normal cursor-pointer text-[16px]
             before:bottom-0 before:left-0 before:w-full before:h-1 before:bg-gradient-to-r before:from-blue-300` 
             : 
-            'font-poppins font-normal cursor-pointer text-[16px] text-dimWhite hover:text-white'} 
+            'relative animation-hover font-poppins font-normal cursor-pointer text-[16px] text-dimWhite hover:text-white'} 
             ${index === navLinks.length - 1 ? 'mr-0' : 'mr-4'}`}>
-              <a href={`#${nav.id}`}>
-                {nav.title}
-              </a>
+              {nav.title}
             </li>
           </LinkScroll>
         ))}
@@ -51,6 +58,7 @@ const Navbar = () => {
             <ul className='list-none flex-col justify-end items-center'>
               {navLinks.map((nav, index) => (
                 <LinkScroll 
+                key={nav.id}
                 activeClass='active'
                 to={nav.id}
                 spy={true}
@@ -60,20 +68,21 @@ const Navbar = () => {
                     setActiveLink(nav.id);
                 }}
                 >
-                    <li key={nav.id} 
-                    className={`${activeLink === 'features' ? 'text-dimBlue' : 'font-poppins font-normal cursor-pointer text-[16px] text-dimBlue'} 
-                    ${index === navLinks.length - 1 ? 'mb-0' : 'mb-4'}`}>
-                      {/* <a href={`#${nav.id}`}> */}
-                        {nav.title}
-                      {/* </a> */}
-                    </li>
+                  <li
+                  className={`${activeLink === nav.id ? `text-white relative before:absolute 
+                  font-poppins font-normal cursor-pointer text-[16px]
+                  before:bottom-0 before:left-0 before:w-full before:h-1 before:bg-gradient-to-r before:from-blue-300` 
+                  : 
+                  'font-poppins font-normal cursor-pointer text-[16px] text-dimWhite hover:text-white'} 
+                  ${index === navLinks.length - 1 ? 'mb-0' : 'mb-4'}`}>
+                    {nav.title}
+                  </li>
                 </LinkScroll>
-                
               ))}
             </ul>
           </div>
       </div>
-    </nav>
+    </motion.nav>
   )
 }
 

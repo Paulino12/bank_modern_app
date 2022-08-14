@@ -18,6 +18,20 @@
   scroll-behavior: smooth;
 }
 
+.animation-hover:after {
+  /* background: none repeat scroll 0 0 transparent; */
+  content: "";
+  height: 3px;
+  transition: width 0.3s ease 0s, right 0.3s ease 0s;
+  @apply w-0 bg-gradient-to-r from-blue-300 left-0 block bottom-0 absolute;
+}
+.animation-active:after {
+  @apply left-0 w-full;
+}
+.animation-hover:hover:after {
+  @apply left-0 w-full;
+}
+
 .text-gradient {
   background: radial-gradient(
     64.18% 64.18% at 71.16% 35.69%,
