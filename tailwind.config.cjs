@@ -13,6 +13,9 @@ module.exports = {
       fontFamily: {
         poppins: ["Poppins", "sans-serif"],
       },
+      backgroundColor: {
+        bgBlueGradient: "linear-gradient(157.81deg, #def9fa -43.27%,#bef3f5 -21.24%,#9dedf0 12.19%,#7de7eb 29.82%,#5ce1e6 51.94%,#33bbcf 90.29%)"
+      }
     },
     screens: {
       xs: "480px",
