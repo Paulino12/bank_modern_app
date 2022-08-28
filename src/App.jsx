@@ -10,6 +10,10 @@ import {
   CTA, 
   Footer 
  } from './components'
+import AOS from 'aos'
+import 'aos/dist/aos.css'
+
+AOS.init()
 
 const App = () => (
     <div className='bg-primary w-full overflow-hidden'>
